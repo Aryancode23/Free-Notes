@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Abhi Notes — Unlock Your Potential, One Note at a Time</title>
+  <meta name="description" content="Free, high-quality chapter-wise study notes. Empowering students to achieve academic excellence for free." />
+
+  <!-- Fonts: Poppins for display/headlines, Inter for body/UI -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ============================= NAVBAR ============================= -->
+  <header class="navbar">
+    <nav class="wrap">
+      <a href="#" class="brand">
+        <i data-lucide="zap" style="width:20px;height:20px"></i>
+        <span>Abhi Notes</span>
+      </a>
+
+      <div class="nav-links">
+        <a href="#subjects">Subjects</a>
+        <a href="#notes">Latest Notes</a>
+        <a href="#contact">Contact</a>
+        <a href="admin.html" class="nav-admin-link">Admin</a>
+      </div>
+
+      <button class="nav-toggle" data-nav-toggle aria-label="Open menu" aria-expanded="false">
+        <i data-lucide="menu"></i>
+      </button>
+    </nav>
+
+    <div class="mobile-menu glass-panel" data-mobile-menu>
+      <a href="#subjects">Subjects</a>
+      <a href="#notes">Latest Notes</a>
+      <a href="#contact">Contact</a>
+      <a href="admin.html" class="nav-admin-link">Admin</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- ============================= HERO ============================= -->
+    <section class="hero">
+      <div class="hero-bg" aria-hidden="true">
+        <div class="blob blob-cyan"></div>
+        <div class="blob blob-violet"></div>
+      </div>
+
+      <div class="wrap hero-content">
+        <!-- Letters are split into spans by main.js for the kinetic-type effect -->
+        <h1 class="headline" data-kinetic-headline>Abhi Notes</h1>
+
+        <p class="slogan">Unlock Your Potential, One Note at a Time.</p>
+        <p class="subline">
+          Your success is written in the notes you take today — and every one
+          of ours is free.
+        </p>
+
+        <div class="hero-ctas">
+          <a href="#notes" class="btn btn-primary">Browse Latest Notes</a>
+          <a href="#subjects" class="btn btn-secondary">Explore Subjects</a>
+        </div>
+      </div>
+
+      <div class="scroll-cue" aria-hidden="true">
+        <i data-lucide="arrow-down"></i>
+      </div>
+    </section>
+
+    <!-- ============================= SUBJECTS ============================= -->
+    <section id="subjects" class="section">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <h2>Pick a subject, start today</h2>
+          <p>
+            Empowering students to achieve academic excellence for free —
+            every subject below is fully chapter-mapped and ready to read.
+          </p>
+        </div>
+
+        <!-- Populated by renderSubjects() in js/main.js from live Supabase data (js/data.js) -->
+        <div class="subjects-grid" data-subjects-grid></div>
+      </div>
+    </section>
+
+    <!-- ============================= NOTES FEED ============================= -->
+    <section id="notes" class="section">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <h2>Chapter-wise notes, as they land</h2>
+          <p>Every upload appears here the moment it's published — newest chapter at the top.</p>
+        </div>
+
+        <div class="timeline">
+          <div class="timeline-spine" aria-hidden="true"></div>
+          <!-- Populated by renderNotesTimeline() in js/main.js -->
+          <ul class="timeline-list" data-notes-list></ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============================= FOOTER ============================= -->
+  <footer id="contact" class="footer">
+    <div class="wrap">
+      <div class="footer-panel glass-panel">
+        <div class="footer-grid">
+
+          <!-- Brand + contact list -->
+          <div>
+            <div class="footer-brand">
+              <i data-lucide="zap" style="width:20px;height:20px;color:var(--cyan)"></i>
+              <span>Abhi Notes</span>
+            </div>
+            <p class="footer-tagline">
+              Unlock Your Potential, One Note at a Time. Reach out with
+              requests, corrections, or a chapter you'd like added next.
+            </p>
+
+            <ul class="contact-list">
+              <li>
+                <a href="tel:+919241274548">
+                  <span class="contact-icon"><i data-lucide="phone"></i></span>
+                  +91 92412 74548
+                </a>
+              </li>
+              <li>
+                <a href="mailto:jb007jojo@gmail.com">
+                  <span class="contact-icon"><i data-lucide="mail"></i></span>
+                  jb007jojo@gmail.com
+                </a>
+              </li>
+              <li>
+                <a href="https://instagram.com/gaj_endra_7" target="_blank" rel="noopener">
+                  <span class="contact-icon"><i data-lucide="instagram"></i></span>
+                  @gaj_endra_7
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Contact form -->
+          <div>
+            <h3>Send a message</h3>
+
+            <form class="contact-form" data-contact-form>
+              <input type="text" required placeholder="Your name" />
+              <input type="email" required placeholder="Your email" />
+              <textarea rows="3" required placeholder="What's on your mind?"></textarea>
+              <button type="submit" class="btn btn-primary">
+                <i data-lucide="send"></i> Send message
+              </button>
+            </form>
+
+            <p class="form-success" data-contact-success hidden>
+              Message sent. Thanks for reaching out — expect a reply soon.
+            </p>
+          </div>
+
+        </div>
+      </div>
+
+      <p class="footer-copy">© <span data-year></span> Abhi Notes. Made for students, kept free.</p>
+    </div>
+  </footer>
+
+  <!-- Icon set -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/config.js"></script>
+  <script src="js/supabase-client.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/contact.js"></script>
+  <script>document.querySelector("[data-year]").textContent = new Date().getFullYear();</script>
+</body>
+</html>

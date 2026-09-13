@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" class="auth-pending">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin — Abhi Notes</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ============================= NAVBAR ============================= -->
+  <header class="navbar">
+    <nav class="wrap">
+      <a href="index.html" class="brand">
+        <i data-lucide="zap" style="width:20px;height:20px"></i>
+        <span>Abhi Notes</span>
+      </a>
+
+      <div class="nav-links">
+        <a href="index.html#subjects">Subjects</a>
+        <a href="index.html#notes">Latest Notes</a>
+        <a href="index.html#contact">Contact</a>
+        <button class="nav-admin-link" data-sign-out style="background:none">Sign out</button>
+      </div>
+
+      <button class="nav-toggle" data-nav-toggle aria-label="Open menu" aria-expanded="false">
+        <i data-lucide="menu"></i>
+      </button>
+    </nav>
+
+    <div class="mobile-menu glass-panel" data-mobile-menu>
+      <a href="index.html#subjects">Subjects</a>
+      <a href="index.html#notes">Latest Notes</a>
+      <a href="index.html#contact">Contact</a>
+    </div>
+  </header>
+
+  <!-- ============================= ADMIN FORM ============================= -->
+  <main class="admin-section">
+    <a href="index.html" class="back-link">
+      <i data-lucide="arrow-left" style="width:16px;height:16px"></i> Back to site
+    </a>
+
+    <div class="admin-panel glass-panel">
+      <div class="admin-header">
+        <span class="admin-icon"><i data-lucide="upload-cloud"></i></span>
+        <div>
+          <h1>Upload a new chapter</h1>
+          <p>Signed in as <strong data-admin-email>…</strong></p>
+        </div>
+      </div>
+
+      <!-- See js/admin.js for exactly how this uploads to Supabase Storage
+           and inserts a row into the `chapters` table. -->
+      <form class="admin-form" data-admin-form>
+        <div>
+          <label for="subject">Subject</label>
+          <input id="subject" name="subject" type="text" required placeholder="e.g. Physics" list="subject-suggestions" />
+          <datalist id="subject-suggestions" data-subject-suggestions></datalist>
+        </div>
+
+        <div>
+          <label for="chapter">Chapter name</label>
+          <input id="chapter" name="chapter" type="text" required placeholder="e.g. Chapter 6: Thermodynamics" />
+        </div>
+
+        <div>
+          <label for="file">PDF or image file</label>
+          <label for="file" class="file-drop">
+            <i data-lucide="file-text"></i>
+            <span data-file-label>Choose a file to upload</span>
+          </label>
+          <input id="file" type="file" accept="application/pdf,image/*" data-file-input required style="display:none" />
+        </div>
+
+        <p class="form-error" data-admin-error hidden></p>
+
+        <button type="submit" class="btn btn-primary admin-submit" data-admin-submit>
+          Publish chapter
+        </button>
+      </form>
+    </div>
+  </main>
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/config.js"></script>
+  <script src="js/supabase-client.js"></script>
+  <script src="js/auth-guard.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      window.lucide?.createIcons();
+      const toggle = document.querySelector("[data-nav-toggle]");
+      const menu = document.querySelector("[data-mobile-menu]");
+      toggle?.addEventListener("click", () => {
+        const isOpen = menu.classList.toggle("open");
+        toggle.setAttribute("aria-expanded", String(isOpen));
+        toggle.innerHTML = isOpen ? '<i data-lucide="x"></i>' : '<i data-lucide="menu"></i>';
+        window.lucide?.createIcons();
+      });
+    });
+  </script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

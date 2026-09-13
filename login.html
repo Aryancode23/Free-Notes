@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Login — Abhi Notes</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <main class="login-section">
+    <div class="login-panel glass-panel">
+      <div class="admin-header">
+        <span class="admin-icon"><i data-lucide="lock"></i></span>
+        <div>
+          <h1>Admin Login</h1>
+          <p>Only the site owner's account can sign in here.</p>
+        </div>
+      </div>
+
+      <form class="admin-form" data-login-form>
+        <div>
+          <label for="email">Email</label>
+          <input id="email" type="email" required placeholder="you@example.com" autocomplete="username" />
+        </div>
+        <div>
+          <label for="password">Password</label>
+          <input id="password" type="password" required placeholder="••••••••" autocomplete="current-password" />
+        </div>
+
+        <p class="form-error" data-login-error hidden></p>
+
+        <button type="submit" class="btn btn-primary admin-submit" data-login-submit>
+          Sign in
+        </button>
+      </form>
+
+      <a href="index.html" class="back-link" style="margin-top:24px;justify-content:center">
+        <i data-lucide="arrow-left" style="width:16px;height:16px"></i> Back to site
+      </a>
+    </div>
+  </main>
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/config.js"></script>
+  <script src="js/supabase-client.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", async () => {
+      window.lucide?.createIcons();
+
+      // If already signed in as the admin, skip straight to the dashboard.
+      const { data } = await supabaseClient.auth.getSession();
+      if (data?.session?.user?.email === ADMIN_EMAIL) {
+        window.location.replace("admin.html");
+        return;
+      }
+
+      const form = document.querySelector("[data-login-form]");
+      const errorEl = document.querySelector("[data-login-error]");
+      const submitBtn = document.querySelector("[data-login-submit]");
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        errorEl.hidden = true;
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Signing in…";
+
+        const email = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value;
+
+        const { data: signInData, error } = await supabaseClient.auth.signInWithPassword({
+          email,
+          password,
+        });
+
+        if (error) {
+          errorEl.textContent = error.message;
+          errorEl.hidden = false;
+          submitBtn.disabled = false;
+          submitBtn.textContent = "Sign in";
+          return;
+        }
+
+        if (signInData.user.email !== ADMIN_EMAIL) {
+          errorEl.textContent = "This account isn't authorized for admin access.";
+          errorEl.hidden = false;
+          await supabaseClient.auth.signOut();
+          submitBtn.disabled = false;
+          submitBtn.textContent = "Sign in";
+          return;
+        }
+
+        window.location.replace("admin.html");
+      });
+    });
+  </script>
+</body>
+</html>
